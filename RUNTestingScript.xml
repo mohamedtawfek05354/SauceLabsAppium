@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Test Suite" verbose="1">
+    <listeners>
+        <listener class-name="Reuse.AllureLog4jListener"/>
+    </listeners>
+    <test name="Demo Test">
+        <classes>
+            <class name="tests.LoginTest.LoginRunner"/>
+        </classes>
+    </test>
+    <test name="Product Test">
+        <classes>
+            <class name="tests.ProductDetailsTest.ProductRunner"/>
+        </classes>
+    </test>
+
+</suite>
