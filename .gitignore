@@ -2,7 +2,11 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-
+allure-report
+allure-results
+logs
+screenshots
+reports
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
