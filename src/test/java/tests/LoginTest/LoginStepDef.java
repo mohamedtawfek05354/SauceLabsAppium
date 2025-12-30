@@ -20,7 +20,7 @@ import java.io.IOException;
 import static java.lang.invoke.MethodHandles.lookup;
 
 public class LoginStepDef {
-    LoginPage lg;
+    public LoginPage lg;
     private final Logger log = LogManager.getLogger(lookup().lookupClass());
     @Before
     public void setup() throws Exception {

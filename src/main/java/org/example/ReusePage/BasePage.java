@@ -17,6 +17,11 @@ import static java.lang.invoke.MethodHandles.lookup;
 public class BasePage {
     public static AndroidDriver BasePageDriver;
     public static final Logger log = LogManager.getLogger(lookup().lookupClass());
+
+    public BasePage(AndroidDriver mydriver) {
+        BasePageDriver=mydriver;
+    }
+
     public void Assertion_page_Title_Name(String Page_Name,AndroidDriver driver){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         // Option 1: Using corrected UiAutomator locator (recommended for Android)

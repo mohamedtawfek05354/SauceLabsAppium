@@ -65,12 +65,8 @@ public class HooksHandler extends BaseTest {
     // Runs before each scenario
     @Before(order = 1)
     public void initializeDriver() {
-        if (!driverInitialized) {
-            globalSetup(); // Fallback if @BeforeAll isn't triggered
-        }
-        if (MobileDriver.getDriver() == null) {
-            MobileDriver.initializeDriver();
-        }
+        MobileDriver.initializeDriver();
+
     }
 
     @Before(order = 2)

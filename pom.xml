@@ -11,9 +11,9 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <Appium>9.3.0</Appium>
+        <Appium>10.0.0</Appium>
         <TestNG>7.11.0</TestNG>
-        <seleniumVersion>4.21.0</seleniumVersion>
+        <seleniumVersion>4.34.0</seleniumVersion>
         <AllureVersion>2.28.0</AllureVersion>
         <log4jVersion>2.23.1</log4jVersion>
         <Commons>2.16.1</Commons>

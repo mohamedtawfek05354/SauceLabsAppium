@@ -20,8 +20,8 @@ public class ProductPage extends BasePage {
     AndroidDriver driver;
     private final Logger log = LogManager.getLogger(lookup().lookupClass());
     private String productName;
-    public ProductPage(AndroidDriver mydriver) {
-        driver=mydriver;
+    public ProductPage(AndroidDriver driver) {
+        super(driver);
     }
     private final By productDetailsPage= AppiumBy.accessibilityId("test-Description");
     private final By productPriceDetails=AppiumBy.accessibilityId("test-Price");
