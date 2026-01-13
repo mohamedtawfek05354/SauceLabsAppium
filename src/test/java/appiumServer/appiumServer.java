@@ -1,6 +1,5 @@
 package appiumServer;
 
-import Reuse.ConfigLoader;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
@@ -18,14 +17,18 @@ public class appiumServer {
 
     public appiumServer() {
         try {
-            service = new AppiumServiceBuilder()
-                    .withIPAddress("127.0.0.1")
-                    .withTimeout(Duration.ofSeconds(60))
-                    .withArgument(() -> "--allow-insecure", "adb_shell")
-                    .usingAnyFreePort()
-                    .build();
+            AppiumServiceBuilder builder = new AppiumServiceBuilder();
+            builder.withArgument(() -> "--log-level", "debug").withArgument(() -> "--allow-insecure=adb_shell").withArgument(() -> "--allow-insecure=execute_driver_script");
+            builder.withIPAddress("127.0.0.1");
+            builder.usingAnyFreePort();
+            builder.withLogOutput(System.out);
+            builder.withTimeout(Duration.ofMinutes(20));
+            builder.withArgument(() -> "--allow-insecure=adb_shell");
+            builder.withArgument(() -> "--allow-insecure=execute_driver_script");
+            builder.withArgument(() -> "--use-plugins", "images");
+            service = AppiumDriverLocalService.buildService(builder);
+            service.clearOutPutStreams();
             service.start();
-
             if (!service.isRunning()) {
                 throw new RuntimeException("Appium server failed to start");
             }

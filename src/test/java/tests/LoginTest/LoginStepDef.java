@@ -20,7 +20,7 @@ import java.io.IOException;
 import static java.lang.invoke.MethodHandles.lookup;
 
 public class LoginStepDef {
-    public LoginPage lg;
+    LoginPage lg;
     private final Logger log = LogManager.getLogger(lookup().lookupClass());
     @Before
     public void setup() throws Exception {
@@ -58,6 +58,12 @@ public class LoginStepDef {
         Allure.step("Clicking on the login button");
         lg.clickLogin();
         log.info("Login button clicked.");
+    }
+    @Step("Clicking on the failed login button")
+    @When("I click on the failed login button")
+    public void i_click_on_failed_the_login_button() {
+        Allure.step("Clicking on the login button");
+        lg.clickFaildLogin();
     }
 
     @Step("Verifying redirection to the inventory page")

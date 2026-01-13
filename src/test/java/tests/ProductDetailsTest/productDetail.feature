@@ -23,7 +23,7 @@ Feature: Product details page functionality
     Examples:
       | productName         |
       | Sauce Labs Backpack |
-      |Sauce Labs Bike Light|
+      |Sauce Labs Bike Light1|
 
   Scenario Outline: Complete checkout with valid information
     When I click on the cart icon

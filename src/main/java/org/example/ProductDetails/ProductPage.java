@@ -17,11 +17,9 @@ import java.time.Duration;
 import static java.lang.invoke.MethodHandles.lookup;
 
 public class ProductPage extends BasePage {
-    AndroidDriver driver;
-    private final Logger log = LogManager.getLogger(lookup().lookupClass());
     private String productName;
-    public ProductPage(AndroidDriver driver) {
-        super(driver);
+    public ProductPage(AndroidDriver myBasePageDriver) {
+        super(myBasePageDriver);
     }
     private final By productDetailsPage= AppiumBy.accessibilityId("test-Description");
     private final By productPriceDetails=AppiumBy.accessibilityId("test-Price");
@@ -38,85 +36,78 @@ public class ProductPage extends BasePage {
     private final By endProcess=AppiumBy.androidUIAutomator("new UiSelector().text(\"THANK YOU FOR YOU ORDER\")");
 
     public void assertDetailsPage(){
-        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(productDetailsPage));
-        driver.findElement(productDetailsPage).isDisplayed();
+        BasePageDriver.findElement(productDetailsPage).isDisplayed();
     }
     public void clickOnProduct(String productName){
-        findElement(productName,driver).click();
+        findElement(productName,BasePageDriver).click();
         this.productName=productName;
     }
     public String getProductName() {
-        return findElement(productName,driver).getText();
+        return findElement(productName,BasePageDriver).getText();
     }
 
     public String getProductPrice() {
-        return driver.findElement(productPriceDetails).getText();
+        return BasePageDriver.findElement(productPriceDetails).getText();
     }
 
     public void clickOpenMenu() {
-        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(openMenu));
-        driver.findElement(openMenu).click();
+        BasePageDriver.findElement(openMenu).click();
     }
 
     public void clickAllItems() {
-        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(allItems));
-        driver.findElement(allItems).click();
+        BasePageDriver.findElement(allItems).click();
     }
 
     public void clickAddToCart() {
-        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(addToCartButton));
-        driver.findElement(addToCartButton).click();
+        BasePageDriver.findElement(addToCartButton).click();
     }
     public void clickOnCart() {
-        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(cartIcon));
-        driver.findElement(cartIcon).click();
+        BasePageDriver.findElement(cartIcon).click();
     }
 
     public void clickOnCheckOut(){
-        ScrollingPage.scrollToElement(checkOut,5,driver);
-        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
+        ScrollingPage.scrollToElement(checkOut,5,BasePageDriver);
         wait.until(ExpectedConditions.visibilityOfElementLocated(checkOut));
-        driver.findElement(checkOut).click();
+        BasePageDriver.findElement(checkOut).click();
     }
     public void enterFirstName(String fName){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(firstName));
-        driver.findElement(firstName).clear();
-        driver.findElement(firstName).sendKeys(fName);
+        BasePageDriver.findElement(firstName).clear();
+        BasePageDriver.findElement(firstName).sendKeys(fName);
+    }
+    public void enterInvalidFirstName(String fName){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId("First Name")));
+        BasePageDriver.findElement(firstName).clear();
+        BasePageDriver.findElement(firstName).sendKeys(fName);
     }
     public void enterLastName(String lName){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(lastName));
-        driver.findElement(lastName).clear();
-        driver.findElement(lastName).sendKeys(lName);
+        BasePageDriver.findElement(lastName).clear();
+        BasePageDriver.findElement(lastName).sendKeys(lName);
     }
     public void enterZipCode(String code){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
         wait.until(ExpectedConditions.visibilityOfElementLocated(zipPostalCode));
-        driver.findElement(zipPostalCode).clear();
-        driver.findElement(zipPostalCode).sendKeys(code);
+        BasePageDriver.findElement(zipPostalCode).clear();
+        BasePageDriver.findElement(zipPostalCode).sendKeys(code);
     }
     public void clickOnContinue(){
-        ScrollingPage.scrollToElement(continueBtn,5,driver);
-        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(50));
+        ScrollingPage.scrollToElement(continueBtn,5,BasePageDriver);
         wait.until(ExpectedConditions.visibilityOfElementLocated(continueBtn));
-        driver.findElement(continueBtn).click();
+        BasePageDriver.findElement(continueBtn).click();
     }
     public void clickOnFinish(){
-        ScrollingPage.scrollToElement(finishBtn,5,driver);
-        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(50));
+        ScrollingPage.scrollToElement(finishBtn,5,BasePageDriver);
         wait.until(ExpectedConditions.visibilityOfElementLocated(finishBtn));
-        driver.findElement(finishBtn).click();
+        BasePageDriver.findElement(finishBtn).click();
     }
     public void assertThanksMessage(){
-        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(endProcess));
-        driver.findElement(endProcess).isDisplayed();
+        BasePageDriver.findElement(endProcess).isDisplayed();
     }
 
 }

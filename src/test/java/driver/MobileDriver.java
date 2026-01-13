@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 
 import static java.lang.invoke.MethodHandles.lookup;
 
@@ -21,7 +22,6 @@ public class MobileDriver {
     private static UiAutomator2Options options;
     private static appiumServer server;
     private static MobileDriver mobileDriver=null;
-
     private MobileDriver(){
         setAndroidDriver();
     }
@@ -35,19 +35,26 @@ public class MobileDriver {
     }
     private void setAndroidDriver() {
         try {
+            // 1. Load configuration
             loadProperties();
+
+            // 2. Start Appium server if needed
             if (server == null) {
                 server = new appiumServer();
             }
+
+            // 3. Set capabilities
             setUiAutomator2Options();
             setAppPackageAndActivity();
 
+            // 4. Log the server URL and options
             log.info("Connecting to Appium server at: {}", server.getCurrentServerUrl());
-
             log.info("Driver options: {}", options.asMap());
 
+            // 5. Create driver instance
             driver = new AndroidDriver(new URL(server.getCurrentServerUrl()), options);
 
+            // 6. Verify driver is created
             if (driver == null) {
                 throw new RuntimeException("Failed to create AndroidDriver instance");
             }
@@ -61,12 +68,14 @@ public class MobileDriver {
     public static void initializeDriver() {
         getInstance(); // This will call setAndroidDriver()
     }
-    private void setUiAutomator2Options() {
+    private void setUiAutomator2Options() throws MalformedURLException {
         options = new UiAutomator2Options();
         options.setPlatformName(configLoader.getProperty("platformName"));
         options.setDeviceName(configLoader.getProperty("deviceName"));
         options.setAutomationName(configLoader.getProperty("automationName"));
-        options.setApp(configLoader.getProperty("appPath"));
+        options.setApp(configLoader.getProperty("appPath"))
+                .setAppWaitPackage(configLoader.getProperty("appPackage"))
+                .setAdbExecTimeout(Duration.ofMillis(20000));;
         log.info("Platform: {}, Device: {}, App: {}",
                 configLoader.getProperty("platformName"),
                 configLoader.getProperty("deviceName"),
@@ -80,7 +89,7 @@ public class MobileDriver {
                 .setAppWaitPackage("com.swaglabsmobileapp")
                 .setAppWaitActivity("com.swaglabsmobileapp.MainActivity");;
     }
-    private void loadProperties() {
+    private void loadProperties() throws IOException {
         configLoader = new ConfigLoader("src/main/resources/config.properties");
     }
     public static AndroidDriver getDriver(){

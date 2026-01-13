@@ -30,7 +30,6 @@ public class AllureLog4jListener implements IInvokedMethodListener {
         File logFile = new File("logs/application.log"); // Path to your log file
         if (logFile.exists() && logFile.length() > 0) {
             try (FileInputStream fis = new FileInputStream(logFile)) {
-                // Attach the log file to the Allure report
                 Allure.addAttachment("Application Logs", "text/plain", fis, "log");
             } catch (IOException e) {
                 logger.error("Error attaching log to Allure report: ", e);
